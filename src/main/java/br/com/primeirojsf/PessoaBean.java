@@ -19,6 +19,12 @@ public class PessoaBean {
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	
 	public String salvar() {
+		
+		if(pessoa.getNome() == null || pessoa.getNome().isEmpty()) {
+			carregarPessoas();
+			return "";
+		}
+		
 		pessoa = daoGeneric.merge(pessoa);
 		carregarPessoas();
 		return "";

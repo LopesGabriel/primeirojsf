@@ -6,53 +6,98 @@
 <h:head>
 
 	<title>Index</title>
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	
 	<script>
-	// Qualquer script aqui!
+	// To do
 	</script>
 	
 </h:head>
 <h:body>
+
+	<h1 class="text-center"><h:graphicImage value="/resources/img/FormIcon.png" style="height:30px;width:30px;" /> Cadastro de Pessoa</h1>
 	
 	<h:form id="formPessoa">
-		<h1>Cadastro de Pessoa</h1>
+		<div class="form-group col-lg-8" style="margin:0 auto;">
+			<h:outputLabel for="id" value="Id"/>
+			<h:inputText id="id" class="form-control" value="#{pessoaBean.pessoa.id}" readonly="true" />
+		</div>
 		
-		<h:outputLabel for="id" value="Id:"/>
-		<h:inputText id="id" value="#{pessoaBean.pessoa.id}" readonly="true" />
+		<div class="form-group col-lg-8" style="margin:0 auto;">
+			<h:outputLabel for="nome" value="Nome:" />
+			<h:inputText id="nome" class="form-control" value="#{pessoaBean.pessoa.nome}" />
+		</div>
 		
-		<br/>
-		<h:outputLabel for="nome" value="Nome:" />
-		<h:inputText id="nome" value="#{pessoaBean.pessoa.nome}" />
+		<div class="form-group col-lg-8" style="margin:0 auto;">
+			<h:outputLabel for="sobrenome" value="Sobrenome:" />
+			<h:inputText id="sobrenome" class="form-control" value="#{pessoaBean.pessoa.sobrenome}" />
+			
+		</div>
 		
-		<br/>
-		<h:outputLabel for="sobrenome" value="Sobrenome:" />
-		<h:inputText id="sobrenome" value="#{pessoaBean.pessoa.sobrenome}" />
+		<div class="form-group col-lg-8" style="margin:0 auto;">
+			<h:outputLabel for="idade" value="Idade:" />
+			<h:inputText id="idade" class="form-control" value="#{pessoaBean.pessoa.idade}" />
+		</div>
 		
-		<br/>
-		<h:outputLabel for="idade" value="Idade:" />
-		<h:inputText id="idade" value="#{pessoaBean.pessoa.idade}" />
+		<div class="form-group col-lg-8" style="margin:0 auto;">
+			<h:outputLabel for="email" value="Email:" />
+			<h:inputText id="email" class="form-control" value="#{pessoaBean.pessoa.email}" />
+		</div>
 		
-		<br/>
-		<h:commandButton value="Salvar" action="#{pessoaBean.salvar}" />
-		<h:commandButton value="Novo" action="#{pessoaBean.novo}" />
-		<h:commandButton value="Remover" action="#{pessoaBean.deletar}" style="background-color:#E35858;color:black;border-style:solid;border-color:#E35858;" />
+		<div class="form-group col-lg-8" style="margin:0 auto;">
+			<h:outputLabel for="sexo" value="Sexo:" />
+			<h:selectOneMenu id="sexo" class="form-control" value="#{pessoaBean.pessoa.sexo}">
+				<f:selectItem itemValue="Masculino" />
+				<f:selectItem itemValue="Feminino" />
+			</h:selectOneMenu>
+		</div>
 		
-		<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa">
+		<div class="form-group col-lg-8 row justify-content-md-center" style="margin:0 auto; margin-top:10px;">
+				<h:commandButton id="save" value="Salvar" action="#{pessoaBean.salvar}" class="btn btn-success" />
+				<h:commandButton value="Novo" action="#{pessoaBean.novo}" id="new" class="btn btn-primary" 
+				style="margin-left:30px;" />
+				<h:commandButton value="Remover" action="#{pessoaBean.deletar}" id="del" class="btn btn-danger" 
+				style="margin-left:30px;" />
+		</div>
+		
+		<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" style="margin:0 auto; margin-top:40px;" 
+		class="table table-sm table-bordered table-striped col-lg-11 text-center">
+			<f:facet name="header">
+				<h2><h:graphicImage value="/resources/img/user.png" style="width:40px;height:40px;" /> Lista de pessoas cadastradas</h2>
+			</f:facet>
 			<h:column>
+				<f:facet name="header">Nome</f:facet>
 				<h:outputText value="#{pessoa.nome}" />
 			</h:column>
 			<h:column>
+				<f:facet name="header">Sobrenome</f:facet>
 				<h:outputText value="#{pessoa.sobrenome}" />
 			</h:column>
 			<h:column>
+				<f:facet name="header">Idade</f:facet>
 				<h:outputText value="#{pessoa.idade}" />
 			</h:column>
 			<h:column>
-				<h:commandLink value="Editar">
-					<f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"></f:setPropertyActionListener>
-				</h:commandLink>
+				<f:facet name="header">Email</f:facet>
+				<h:outputText value="#{pessoa.email}" />
 			</h:column>
 			<h:column>
-				<h:commandLink value="Deletar" action="#{pessoaBean.deletar}">
+				<f:facet name="header">Sexo</f:facet>
+				<h:outputText value="#{pessoa.sexo}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Ações</f:facet>
+				<h:commandLink style="margin-right:10px;">
+					<h:graphicImage value="/resources/img/edit.png" style="height:30px;width:30px;" title="Editar" />
+					<f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"></f:setPropertyActionListener>
+				</h:commandLink>
+				
+				<h:commandLink action="#{pessoaBean.deletar}">
+				<h:graphicImage value="/resources/img/delete.png" style="height:30px;width:30px;" title="Deletar" />
 					<f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"></f:setPropertyActionListener>
 				</h:commandLink>
 			</h:column>
