@@ -4,107 +4,50 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-
-	<title>Index</title>
-	
+	<title>Acessar o sistema</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	
-	<script>
-	// To do
-	</script>
-	
+	<style>
+		.login-box{
+			background-color: #2F4F4F;
+			border-radius:10px;
+			width:100%;
+			height:100%;
+			color:white;
+			margin:0 auto;
+			margin-top:100px;
+		}
+		.center{
+			margin-left:20%;
+		}
+	</style>
 </h:head>
 <h:body>
-
-	<h1 class="text-center"><h:graphicImage value="/resources/img/FormIcon.png" style="height:30px;width:30px;" /> Cadastro de Pessoa</h1>
-	
-	<h:form id="formPessoa">
-		<div class="form-group col-lg-8" style="margin:0 auto;">
-			<h:outputLabel for="id" value="Id"/>
-			<h:inputText id="id" class="form-control" value="#{pessoaBean.pessoa.id}" readonly="true" />
+	<div class="container-fluid">
+		<h:form id="formLogin">
+		<div class="container row col-lg-3 login-box">
+			<div class="form-group col-lg-12">
+				<h:outputLabel for="login" value="Login:" />
+				<h:inputText id="login" class="form-control" value="#{pessoaBean.pessoa.login}" />
+			</div>
+			<div class="form-group col-lg-12">
+				<h:outputLabel for="senha" value="Senha:" />
+				<h:inputSecret id="senha" class="form-control" value="#{pessoaBean.pessoa.senha}" />
+			</div>
+			<div class="col-lg-12 justify-content-md-center">
+				<h:commandButton value="Acessar" action="#{pessoaBean.logar}" class="center btn btn-success" />
+			</div>
+			<div class="form-group col-lg-6">
+				<h:selectBooleanCheckbox id="remember" class="custom-control-input" />
+				<h:outputLabel for="remember" class="custom-control-label" value="Lembre-se de mim" />
+			</div>
+			<div class="col-lg-6">
+				<a href="#"><p>Esqueci minha senha</p></a>
+			</div>
 		</div>
-		
-		<div class="form-group col-lg-8" style="margin:0 auto;">
-			<h:outputLabel for="nome" value="Nome:" />
-			<h:inputText id="nome" class="form-control" value="#{pessoaBean.pessoa.nome}" />
-		</div>
-		
-		<div class="form-group col-lg-8" style="margin:0 auto;">
-			<h:outputLabel for="sobrenome" value="Sobrenome:" />
-			<h:inputText id="sobrenome" class="form-control" value="#{pessoaBean.pessoa.sobrenome}" />
-			
-		</div>
-		
-		<div class="form-group col-lg-8" style="margin:0 auto;">
-			<h:outputLabel for="idade" value="Idade:" />
-			<h:inputText id="idade" class="form-control" value="#{pessoaBean.pessoa.idade}" />
-		</div>
-		
-		<div class="form-group col-lg-8" style="margin:0 auto;">
-			<h:outputLabel for="email" value="Email:" />
-			<h:inputText id="email" class="form-control" value="#{pessoaBean.pessoa.email}" />
-		</div>
-		
-		<div class="form-group col-lg-8" style="margin:0 auto;">
-			<h:outputLabel for="sexo" value="Sexo:" />
-			<h:selectOneMenu id="sexo" class="form-control" value="#{pessoaBean.pessoa.sexo}">
-				<f:selectItem itemValue="Masculino" />
-				<f:selectItem itemValue="Feminino" />
-			</h:selectOneMenu>
-		</div>
-		
-		<div class="form-group col-lg-8 row justify-content-md-center" style="margin:0 auto; margin-top:10px;">
-				<h:commandButton id="save" value="Salvar" action="#{pessoaBean.salvar}" class="btn btn-success" />
-				<h:commandButton value="Novo" action="#{pessoaBean.novo}" id="new" class="btn btn-primary" 
-				style="margin-left:30px;" />
-				<h:commandButton value="Remover" action="#{pessoaBean.deletar}" id="del" class="btn btn-danger" 
-				style="margin-left:30px;" />
-		</div>
-		
-		<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" style="margin:0 auto; margin-top:40px;" 
-		class="table table-sm table-bordered table-striped col-lg-11 text-center">
-			<f:facet name="header">
-				<h2><h:graphicImage value="/resources/img/user.png" style="width:40px;height:40px;" /> Lista de pessoas cadastradas</h2>
-			</f:facet>
-			<h:column>
-				<f:facet name="header">Nome</f:facet>
-				<h:outputText value="#{pessoa.nome}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Sobrenome</f:facet>
-				<h:outputText value="#{pessoa.sobrenome}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Idade</f:facet>
-				<h:outputText value="#{pessoa.idade}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Email</f:facet>
-				<h:outputText value="#{pessoa.email}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Sexo</f:facet>
-				<h:outputText value="#{pessoa.sexo}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Ações</f:facet>
-				<h:commandLink style="margin-right:10px;">
-					<h:graphicImage value="/resources/img/edit.png" style="height:30px;width:30px;" title="Editar" />
-					<f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"></f:setPropertyActionListener>
-				</h:commandLink>
-				
-				<h:commandLink action="#{pessoaBean.deletar}">
-				<h:graphicImage value="/resources/img/delete.png" style="height:30px;width:30px;" title="Deletar" />
-					<f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"></f:setPropertyActionListener>
-				</h:commandLink>
-			</h:column>
-		</h:dataTable>
-		
-	</h:form>
-	
+		</h:form>
+	</div>
 </h:body>
-
 </html>
