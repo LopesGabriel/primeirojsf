@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Lançamentos</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<style>
+	</style>
+</h:head>
+<h:body>
+
+	<h:form id="navBar"> <!-- Cabeçalho -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <h:commandLink class="navbar-brand" value="Primeiro JSF" action="cadastro" />
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+	    <div class="navbar-nav col-12">
+	      <a class="nav-item nav-link active" href="lancamento.jsf">Lançamentos <span class="sr-only">(current)</span></a>
+	      <a class="nav-item nav-link col-8" href="#">Administração</a>
+	      <h:commandLink class="nav-item nav-link" action="#{pessoaBean.deslogar}" value="Deslogar" />
+	      <div class="col-6">
+	      	<h:outputText class="nav-item nav-link" value="Bem-vindo #{usuarioLogado.nome}" />
+	      </div>
+	    </div>
+	  </div>
+	</nav>
+	</h:form>
+	
+	<!-- Conteudo -->
+	
+	<h:form id="formLancamento">
+		<h3 style="text-align:center;margin-top:20px;">Formulário de Lancamentos</h3>
+		<div class="row col-6" style="margin:0 auto;">
+			<h:inputHidden value="#{lancamentoBean.lancamento.id}" />
+			<div class="form-group col-4">
+				<h:outputLabel for="nota" value="Nota:" />
+				<h:inputText id="nota" value="#{lancamentoBean.lancamento.numeroNotaFiscal}" class="form-control" />
+			</div>
+			<div class="form-group col-4">
+				<h:outputLabel for="emOrigem" value="Empresa de Origem:" />
+				<h:inputText id="emOrigem" value="#{lancamentoBean.lancamento.empresaOrigem}" class="form-control" />
+			</div>
+			<div class="form-group col-4">
+				<h:outputLabel for="emDestino" value="Empresa de Destino:" />
+				<h:inputText id="emDestino" value="#{lancamentoBean.lancamento.empresaDestino}" class="form-control" />
+			</div>
+			<div class="form-group col-12 d-flex justify-content-center">
+				<h:commandButton id="save" value="Salvar" action="#{lancamentoBean.salvar}" class="btn btn-success" />
+				<h:commandButton value="Novo" action="#{lancamentoBean.novo}" id="new" class="btn btn-primary" 
+				style="margin-left:30px;" />
+				<h:commandButton value="Remover" action="#{lancamentoBean.deletar}" id="del" class="btn btn-danger" 
+				style="margin-left:30px;" />
+			</div>
+		</div>
+	</h:form>
+	
+	<h:form>
+		<h:dataTable value="#{lancamentoBean.lancamentoUser}" var="lancamento" style="margin:0 auto; margin-top:40px;" 
+		class="table table-sm table-bordered table-striped col-11 text-center">
+			<f:facet name="header">
+				<h2>Lista de lançamentos</h2>
+			</f:facet>
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{lancamento.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nota Fiscal</f:facet>
+				<h:outputText value="#{lancamento.numeroNotaFiscal}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Empresa de Origem</f:facet>
+				<h:outputText value="#{lancamento.empresaOrigem}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Empresa de Destino</f:facet>
+				<h:outputText value="#{lancamento.empresaDestino}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Autor</f:facet>
+				<h:outputText value="#{lancamento.usuario.nome}  #{lancamento.usuario.sobrenome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Ações</f:facet>
+				<h:commandLink style="margin-right:10px;">
+					<h:graphicImage value="/resources/img/edit.png" style="height:30px;width:30px;" title="Editar" />
+					<f:setPropertyActionListener value="#{lancamento}" target="#{lancamentoBean.lancamento}"></f:setPropertyActionListener>
+				</h:commandLink>
+					
+				<h:commandLink action="#{lancamentoBean.deletar}">
+				<h:graphicImage value="/resources/img/delete.png" style="height:30px;width:30px;" title="Deletar" />
+					<f:setPropertyActionListener value="#{lancamento}" target="#{lancamentoBean.lancamento}"></f:setPropertyActionListener>
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+		<div class="d-flex justify-content-center">
+			<h:commandButton value="Carregar" action="#{lancamentoBean.carregarLancamentosUser}" style="margin:0 auto;"
+			rendered="#{lancamentoBean.permiteAcesso('ADMINISTRADOR')}" class="btn btn-primary" />
+		</div>
+	</h:form>
+	
+	<!-- Lançamento de todos os usuários -->
+	<h:form rendered="#{lancamentoBean.permiteAcesso('ADMINISTRADOR')}">
+		<h:dataTable value="#{lancamentoBean.lancamentosGeral}" var="lancamento" style="margin:0 auto; margin-top:40px;" 
+		class="table table-sm table-bordered table-striped col-11 text-center">
+			<f:facet name="header">
+				<h2>Lista de <b>TODOS</b> os lançamentos</h2>
+			</f:facet>
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{lancamento.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nota Fiscal</f:facet>
+				<h:outputText value="#{lancamento.numeroNotaFiscal}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Empresa de Origem</f:facet>
+				<h:outputText value="#{lancamento.empresaOrigem}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Empresa de Destino</f:facet>
+				<h:outputText value="#{lancamento.empresaDestino}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Autor</f:facet>
+				<h:outputText value="#{lancamento.usuario.nome}  #{lancamento.usuario.sobrenome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Ações</f:facet>
+				<h:commandLink style="margin-right:10px;">
+					<h:graphicImage value="/resources/img/edit.png" style="height:30px;width:30px;" title="Editar" />
+					<f:setPropertyActionListener value="#{lancamento}" target="#{lancamentoBean.lancamento}"></f:setPropertyActionListener>
+				</h:commandLink>
+					
+				<h:commandLink action="#{lancamentoBean.deletar}">
+				<h:graphicImage value="/resources/img/delete.png" style="height:30px;width:30px;" title="Deletar" />
+					<f:setPropertyActionListener value="#{lancamento}" target="#{lancamentoBean.lancamento}"></f:setPropertyActionListener>
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+		<div class="d-flex justify-content-center">
+			<h:commandButton value="Carregar" action="#{lancamentoBean.carregarLancamentos}" style="margin:0 auto;"
+			rendered="#{lancamentoBean.permiteAcesso('ADMINISTRADOR')}" class="btn btn-primary" />
+		</div>
+	</h:form>
+	
+	<!-- Fim conteudo -->
+</h:body>
+</html>

@@ -13,58 +13,76 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	
 	<script>
-	// To do
 	</script>
 	
 </h:head>
 <h:body>
-
-	<h1 class="text-center"><h:graphicImage value="/resources/img/FormIcon.png" style="height:30px;width:30px;" /> Cadastro de Pessoa</h1>
+	<h:form id="navBar">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <h:commandLink class="navbar-brand" value="Primeiro JSF" action="cadastro" />
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+	    <div class="navbar-nav col-12">
+	      <a class="nav-item nav-link active" href="lancamento.jsf">Lançamentos <span class="sr-only">(current)</span></a>
+	      <a class="nav-item nav-link col-8" href="#">Administração</a>
+	      <h:commandLink class="nav-item nav-link" action="#{pessoaBean.deslogar}" value="Deslogar" />
+	      <div class="col-6">
+	      	<h:outputText class="nav-item nav-link" value="Bem-vindo #{usuarioLogado.nome}" />
+	      </div>
+	    </div>
+	  </div>
+	</nav>
+	</h:form>
 	
 	<h:form id="formPessoa" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 		<h:inputHidden id="id" class="form-control" value="#{pessoaBean.pessoa.id}" />
 		
-		<div class="form-group row col-lg-8" style="margin:0 auto;">
-			<div class="col-lg-4">
+		<h3 style="text-align:center; margin-top:10px;">
+		<h:graphicImage height="30" width="30" value="/resources/img/FormIcon.png" /> Formulário de cadastro</h3>
+		
+		<div class="form-group row col-8" style="margin:0 auto;">
+			<div class="col-4">
 				<h:outputLabel for="nome" value="Nome:" />
 				<h:inputText id="nome" class="form-control" value="#{pessoaBean.pessoa.nome}" />
 			</div>
-			<div class="col-lg-8">
+			<div class="col-8">
 				<h:outputLabel for="sobrenome" value="Sobrenome:" />
 				<h:inputText id="sobrenome" class="form-control" value="#{pessoaBean.pessoa.sobrenome}" />
 			</div>
 		</div>
-		<div class="form-group row col-lg-8" style="margin:0 auto">
-			<div class="col-lg-2">
+		<div class="form-group row col-8" style="margin:0 auto">
+			<div class="col-2">
 				<h:outputLabel for="idade" value="Idade:" />
 				<h:inputText id="idade" class="form-control" value="#{pessoaBean.pessoa.idade}" />
 			</div>
-			<div class="col-lg-6">
+			<div class="col-6">
 				<h:outputLabel for="email" value="Email:" />
 				<h:inputText id="email" class="form-control" value="#{pessoaBean.pessoa.email}" />
 			</div>
-			<div class="col-lg-3">
+			<div class="col-3">
 				<h:outputLabel for="sexo" value="Sexo:" />
 				<h:selectOneMenu id="sexo" class="form-control" value="#{pessoaBean.pessoa.sexo}">
 					<f:selectItem itemValue="Masculino" />
 					<f:selectItem itemValue="Feminino" />
 				</h:selectOneMenu>
 			</div>
-			<div class="col-lg-1" style="padding-top:40px;padding-left:20px;">
+			<div class="col-1" style="padding-top:40px;padding-left:20px;">
 				<h:selectBooleanCheckbox id="ativo" value="#{pessoaBean.pessoa.ativo}" class="custom-control-input" />
 				<h:outputLabel for="ativo" class="custom-control-label" value="Ativo?" />
 			</div>
 		</div>
-		<div class="form-group row col-lg-8" style="margin:0 auto;">
-			<div class="col-lg-4">
+		<div class="form-group row col-8" style="margin:0 auto;">
+			<div class="col-4">
 				<h:outputLabel for="login" value="Login:" />
 				<h:inputText id="login" class="form-control" value="#{pessoaBean.pessoa.login}" />
 			</div>
-			<div class="col-lg-4">
+			<div class="col-4">
 				<h:outputLabel for="senha" value="Senha:" />
 				<h:inputSecret id="senha" class="form-control" value="#{pessoaBean.pessoa.senha}" />
 			</div>
-			<div class="col-lg-4">
+			<div class="col-4">
 				<h:outputLabel for="perfil" value="Perfil do usuário:" />
 				<h:selectOneMenu id="perfil" class="form-control" value="#{pessoaBean.pessoa.perfilUser}">
 					<f:selectItem itemLabel="[-Selecione-]" noSelectionOption="true" />
@@ -74,8 +92,8 @@
 				</h:selectOneMenu>
 			</div>
 		</div>
-		<div class="form-group row col-lg-8" style="margin:0 auto;">
-			<div class="col-lg-4">
+		<div class="form-group row col-8" style="margin:0 auto;">
+			<div class="col-4">
 				<h:outputLabel for="frameworks" value="Frameworks:" />
 				<h:selectManyMenu id="frameworks" class="form-control" value="#{pessoaBean.pessoa.frameworks}" style="height:100px;">
 					<f:selectItem itemValue="Hibernate" />
@@ -85,7 +103,7 @@
 					<f:selectItem itemValue="Spring MVC" />
 				</h:selectManyMenu>
 			</div>
-			<div class="col-lg-8 row justify-content-md-center" style="height:40px;margin-top:5%;">
+			<div class="col-8 row justify-content-md-center" style="height:40px;margin-top:5%;">
 					<h:commandButton id="save" value="Salvar" action="#{pessoaBean.salvar}" class="btn btn-success" />
 					<h:commandButton value="Novo" action="#{pessoaBean.novo}" id="new" class="btn btn-primary" 
 					style="margin-left:30px;" />
@@ -97,7 +115,7 @@
 	
 	<h:form>
 		<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" style="margin:0 auto; margin-top:40px;" 
-		class="table table-sm table-bordered table-striped col-lg-11 text-center">
+		class="table table-sm table-bordered table-striped col-11 text-center">
 			<f:facet name="header">
 				<h2><h:graphicImage value="/resources/img/user.png" style="width:40px;height:40px;" /> Lista de pessoas cadastradas</h2>
 			</f:facet>
@@ -134,7 +152,6 @@
 				</h:commandLink>
 			</h:column>
 		</h:dataTable>
-		<h:commandButton value="Deslogar" class="btn btn-danger" action="#{pessoaBean.deslogar}" style="margin-left:70%;" />
 	</h:form>
 </h:body>
 
